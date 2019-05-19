@@ -29,3 +29,19 @@ export function addDeck(title) {
     }
   }));
 }
+
+export function addCard(title, question, answer) {
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+    .then((results) => {
+      console.log("deck results AsyncStorage",JSON.parse(results));
+      const deck = JSON.parse(results)[title];
+      console.log("deck AsyncStorage",deck);
+
+      return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+        [deck.title]: {
+          title: deck.title,
+          questions: [...deck.questions, { question, answer }]
+        }
+      }));
+    });
+}

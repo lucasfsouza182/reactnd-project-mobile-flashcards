@@ -7,6 +7,7 @@ import reducer from './reducers'
 import Decks from './components/Decks';
 import DeckDetail from './components/DeckDetail';
 import AddDeck from './components/AddDeck';
+import AddCard from './components/AddCard';
 
 export default class App extends React.Component {
   
@@ -23,7 +24,7 @@ export default class App extends React.Component {
 
 const Tabs = TabNavigator({
   Decks: {
-    screen: props => <Decks {...props} />,
+    screen: Decks,
     navigationOptions: {
       tabBarLabel: 'Decks',
     },
@@ -61,9 +62,9 @@ const Tabs = TabNavigator({
     },
     DeckDetail: {
       screen: DeckDetail,
-      navigationOptions: {
-  
-      }
+    },
+    AddCard: {
+      screen: AddCard,
     },
   })
 

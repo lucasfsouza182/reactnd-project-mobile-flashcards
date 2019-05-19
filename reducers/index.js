@@ -14,7 +14,19 @@ function decks(state = {}, action) {
           title: action.title,
           questions: []
         }
-      };  
+      };
+    case ADD_CARD:
+      console.log("ADD_CARD", action);
+      return {
+        ...state,
+        [action.card.title]: {
+          title: action.card.title,
+          questions: [
+            ...state[action.card.title].questions,
+            { question: action.card.question, answer: action.card.answer }
+          ]
+        }
+      };    
 		default :
 			return state
 	}

@@ -11,15 +11,11 @@ class DeckDetail extends Component {
 
   componentDidMount() {
     const {navigation} = this.props;
-    const deckId = navigation.state.params.title;
+    const deckTitle = navigation.state.params.title;
 
-    this.state = {
-      title: deckId
-    }
-
-    storage.getDeck(deckId)
+    storage.getDeck(deckTitle)
     .then(deck => {
-      this.setState({deck: deck});
+      this.setState({title: deckTitle,deck: deck});
     })
   }
 
@@ -28,6 +24,7 @@ class DeckDetail extends Component {
   }
 
   render() {
+    console.log('state',this.state)
     if (!this.state.deck) {
       return (
         <View style={styles.container}>
@@ -40,7 +37,7 @@ class DeckDetail extends Component {
       <View style={styles.container}>
         <Text style={styles.deckTitleLabel}>{this.state.deck.title}</Text>
         <Text style={styles.deckTitleQuestions}>{this.state.deck.questions.length} cards</Text>
-        <TouchableOpacity style={styles.addBtn}>
+        <TouchableOpacity style={styles.addBtn} onPress={this.addCard}>
           <Text style={styles.addBtnText}>Add card</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.quizBtn} >

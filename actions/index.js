@@ -15,3 +15,10 @@ export function addDeck(title) {
 		title
 	}
 }
+
+export function addCard(title, question, answer) {
+	return {
+		type: ADD_CARD,
+		card: { title, question, answer }
+	}
+}
