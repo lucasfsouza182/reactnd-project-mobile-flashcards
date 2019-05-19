@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import Decks from './components/Decks';
 import DeckDetail from './components/DeckDetail';
+import AddDeck from './components/AddDeck';
 
 export default class App extends React.Component {
   
@@ -25,6 +26,12 @@ const Tabs = TabNavigator({
     screen: props => <Decks {...props} />,
     navigationOptions: {
       tabBarLabel: 'Decks',
+    },
+  },
+  AddDeck: {
+    screen: AddDeck,
+    navigationOptions: {
+      tabBarLabel: 'Add Deck',
     },
   },
 }, {

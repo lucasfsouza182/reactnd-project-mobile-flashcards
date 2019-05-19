@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-
-import * as actions from '../actions';
 import * as storage from '../utils/api';
 import { purple , lightPurp, white} from '../utils/colors';
 
 class DeckDetail extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      title: this.props.navigation.state.params.title
-    }
+  state = {
+    title: '',
+    deck:''
   }
 
   componentDidMount() {
     const {navigation} = this.props;
     const deckId = navigation.state.params.title;
+
+    this.state = {
+      title: deckId
+    }
 
     storage.getDeck(deckId)
     .then(deck => {
@@ -24,11 +23,15 @@ class DeckDetail extends Component {
     })
   }
 
+  addCard = () => {
+    this.props.navigation.navigate("AddCard", {deckTitle: this.state.title});
+  }
+
   render() {
     if (!this.state.deck) {
       return (
         <View style={styles.container}>
-          <Text>Loading data...</Text>
+          <Text>Loading deck...</Text>
         </View>
       );
     }
