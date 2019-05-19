@@ -5,6 +5,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import Decks from './components/Decks';
+import DeckDetail from './components/DeckDetail';
 
 export default class App extends React.Component {
   
@@ -50,6 +51,12 @@ const Tabs = TabNavigator({
   const MainNavigator = StackNavigator({
     Home: {
       screen: Tabs,
+    },
+    DeckDetail: {
+      screen: DeckDetail,
+      navigationOptions: {
+  
+      }
     },
   })
 

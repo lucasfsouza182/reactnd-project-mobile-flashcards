@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, StyleSheet, TouchableHighlight } from 'react-native';
+import { Text, View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getDecks } from '../utils/api';
 import { receiveDecks } from '../actions';
+import { gray } from '../utils/colors';
 
-function DeckListItem({ title, questions, navigate }) {
+function DeckItem({ title, questions, navigate }) {
   return (
     <View key={title} style={styles.deckListItem}>
-      <TouchableHighlight>
+      <TouchableOpacity onPress={() => { navigate('DeckDetail', {title: title}) }}>
         <View>
           <Text style={styles.deckListItemTitle}>{title}</Text>
-          <Text style={styles.deckListItemTitle}>{questions.length} Questions</Text>
+          <Text style={styles.deckListItemTitle}>{questions.length} Cards</Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -35,18 +36,19 @@ class Decks extends Component {
 
     if (Object.keys(decks).length === 0) {
       return (
-        <View style={styles.emptySentenceContainer}>
-          <Text style={styles.emptySentence}>Add your first deck!</Text>
+        <View style={styles.emptyMessageContainer}>
+          <Text style={styles.emptyMessage}>Add your first deck!</Text>
         </View>
       )
     }
 
     return (
       <View>
-        <FlatList 
-          data={Object.values(decks)} 
+        <FlatList
+          data={Object.values(decks)}
+          keys={Object.keys(decks)}
           renderItem={({ item }) => {
-            return <DeckListItem {...item} navigate={this.props.navigation.navigate} />
+            return <DeckItem {...item} navigate={this.props.navigation.navigate} />
           }} />
       </View>
     )
@@ -58,19 +60,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    height: 80,
-    borderBottomColor: 'grey',
-    borderBottomWidth: 1,
+    height: 100,
+    borderBottomColor: gray,
+    borderBottomWidth: 0.5,
   },
   deckListItemTitle: {
     fontSize: 21
   },
-  emptySentenceContainer: {
+  emptyMessageContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  emptySentence: {
+  emptyMessage: {
     fontSize: 21
   }
 });
