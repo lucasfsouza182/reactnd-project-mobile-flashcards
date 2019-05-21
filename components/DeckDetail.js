@@ -23,6 +23,10 @@ class DeckDetail extends Component {
     this.props.navigation.navigate("AddCard", {deckTitle: this.state.title});
   }
 
+  startQuiz = () => {
+    this.props.navigation.navigate("Quiz", {deck: this.state.deck});
+  }
+
   render() {
     console.log('state',this.state)
     if (!this.state.deck) {
@@ -40,7 +44,7 @@ class DeckDetail extends Component {
         <TouchableOpacity style={styles.addBtn} onPress={this.addCard}>
           <Text style={styles.addBtnText}>Add card</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.quizBtn} >
+        <TouchableOpacity style={styles.quizBtn} onPress={this.startQuiz}>
           <Text style={styles.quizBtnText}>Start quiz</Text>
         </TouchableOpacity>
       </View>

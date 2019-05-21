@@ -8,6 +8,8 @@ import Decks from './components/Decks';
 import DeckDetail from './components/DeckDetail';
 import AddDeck from './components/AddDeck';
 import AddCard from './components/AddCard';
+import Quiz from './components/Quiz';
+import Score from './components/Score';
 
 export default class App extends React.Component {
   
@@ -66,6 +68,12 @@ const Tabs = TabNavigator({
     AddCard: {
       screen: AddCard,
     },
+    Quiz: {
+      screen: Quiz,
+    },
+    Score: {
+      screen: Score,
+    }
   })
 
 const styles = StyleSheet.create({
