@@ -1,23 +1,38 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View,StyleSheet, TouchableOpacity,Animated, Easing } from 'react-native';
 import PropTypes from 'prop-types';
 import { gray } from '../utils/colors';
 
 
 export default class DeckListItem extends Component {
 
+  state = {
+    opacity: new Animated.Value(0)
+  };
+
+  componentDidMount() {
+    const { opacity } = this.state;
+    const {item} = this.props;
+    
+    Animated.parallel([
+      Animated.timing(opacity, {toValue: 1, delay: item.itemIndex * 100, duration: 1000}),
+    ])
+    .start()
+  }
+
   render() {
     const {item,navigate} = this.props;
+    const {opacity} = this.state;
 
     return (
-      <View key={item.title} style={styles.deckItem}>
-        <TouchableOpacity onPress={() => { navigate('DeckDetail', {title: item.title}) }}>
+      <Animated.View style={{opacity}}>
+        <TouchableOpacity style={[styles.deckItem]}onPress={() => { navigate('DeckDetail', {title: item.title}) }}>
           <View>
             <Text style={styles.deckTitle}>{item.title}</Text>
-            <Text style={styles.deckQuestions}>{item.questions.length} Cards</Text>
+            <Text style={{opacity: .6}}>{item.questions.length} cards</Text>
           </View>
         </TouchableOpacity>
-      </View>
+      </Animated.View>
     )
   }
 }

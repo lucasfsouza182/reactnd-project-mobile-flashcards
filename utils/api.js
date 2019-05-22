@@ -8,15 +8,11 @@ export function getDecks() {
 export function getDeck(key) {
   return this.getDecks()
     .then(decks => {
-      console.log("decks AsyncStorage",Object.entries(decks));
       const deck = Object.entries(decks).find(
         res => {
-          console.log("decks AsyncStorage res",res[1].title);
-          console.log("decks AsyncStorage key",key);
           return res[1].title.toLowerCase() === key.toLowerCase();
         }
       )
-      console.log("decks AsyncStorage deck",deck[1]);
       return deck[1]
     })
 }
@@ -33,10 +29,8 @@ export function addDeck(title) {
 export function addCard(title, question, answer) {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((results) => {
-      console.log("deck results AsyncStorage",JSON.parse(results));
       const deck = JSON.parse(results)[title];
-      console.log("deck AsyncStorage",deck);
-
+      
       return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
         [deck.title]: {
           title: deck.title,

@@ -1,6 +1,9 @@
 import { AsyncStorage } from 'react-native'
 export const DECKS_STORAGE_KEY = 'MobileFlashCards:Decks';
 
+export const QUESTION = "QUESTION";
+export const ANSWER = "ANSWER";
+
 function setDummyData(useDummyData) {
   let dummyData = {};
   if(useDummyData){

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { gray, white , purple} from '../utils/colors';
+import { white , purple} from '../utils/colors';
 import { clearLocalNotification } from '../utils/notifications';
 
 class Score extends Component {

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { gray, white} from '../utils/colors';
-
-const QUESTION = "QUESTION";
-const ANSWER = "ANSWER";
+import { gray, white ,green,red} from '../utils/colors';
+import { QUESTION,ANSWER } from '../utils/_deck'
 
 class Quiz extends Component {
   constructor(props) {
@@ -33,7 +31,6 @@ class Quiz extends Component {
     this.setState({ answers: answers })
 
     if((this.state.index + 1) === this.deck.questions.length) {
-      console.log('responses quiz',this.state.answers)
         return this.props.navigation.navigate("Score", {
           answers: this.state.answers,
           goBackToDeckDetail: () => this.props.navigation.goBack(),
@@ -41,32 +38,33 @@ class Quiz extends Component {
       });
     }
 
-    this.setState({ index: this.state.index + 1,buttonStateHolder : true });
+    this.setState({ index: this.state.index + 1,buttonStateHolder : true,cardSide: QUESTION });
   }
 
   render() {
+    const {index ,cardSide,buttonStateHolder} = this.state;
     return (
       <View style={styles.container}>
-        {this.state.cardSide === QUESTION &&
+        {cardSide === QUESTION &&
           <View style={styles.cardContainer}>
-            <Text style={styles.text}>{this.deck.questions[this.state.index].question}</Text>
+            <Text style={styles.text}>{this.deck.questions[index].question}</Text>
             <TouchableOpacity onPress={this.flipCard}>
               <Text style={styles.flipBtnText}>Click to show the answer</Text>
             </TouchableOpacity>
           </View>
         }
-        {this.state.cardSide === ANSWER &&
+        {cardSide === ANSWER &&
           <View style={styles.cardContainer}>
-            <Text style={styles.text}>{this.deck.questions[this.state.index].answer}</Text>
+            <Text style={styles.text}>{this.deck.questions[index].answer}</Text>
             <TouchableOpacity onPress={this.flipCard}>
               <Text style={styles.flipBtnText}>Click to show the question</Text>
             </TouchableOpacity>
           </View>
         }
-        <TouchableOpacity style={styles.correctBtn} onPress={() => this.answerQuestion(true)} disabled={this.state.buttonStateHolder}>
+        <TouchableOpacity style={styles.correctBtn} onPress={() => this.answerQuestion(true)} disabled={buttonStateHolder}>
           <Text style={styles.correctBtnText}>Correct</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.incorrectBtn} onPress={() => this.answerQuestion(false)} disabled={this.state.buttonStateHolder}>
+        <TouchableOpacity style={styles.incorrectBtn} onPress={() => this.answerQuestion(false)} disabled={buttonStateHolder}>
           <Text style={styles.incorrectBtnText}>Incorrect</Text>
         </TouchableOpacity>
         <Text style={styles.questionLength}>Question {this.state.index + 1} of {this.deck.questions.length}</Text>
@@ -80,7 +78,7 @@ const styles = new StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: white,
   },
   text: {
     alignItems: "center",
@@ -99,7 +97,7 @@ const styles = new StyleSheet.create({
     marginTop: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#0da812",
+    backgroundColor: green,
     paddingLeft: 40,
     paddingRight: 40,
     borderRadius: 5,
@@ -112,7 +110,7 @@ const styles = new StyleSheet.create({
     marginTop: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f7160e",
+    backgroundColor: red,
     paddingLeft: 40,
     paddingRight: 40,
     borderRadius: 5,
