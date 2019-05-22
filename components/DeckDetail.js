@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import * as storage from '../utils/api';
-import { purple , lightPurp, white} from '../utils/colors';
+import { purple , lightPurp, white,gray} from '../utils/colors';
 
 class DeckDetail extends Component {
   state = {
@@ -28,7 +28,6 @@ class DeckDetail extends Component {
   }
 
   render() {
-    console.log('state',this.state)
     if (!this.state.deck) {
       return (
         <View style={styles.container}>
@@ -39,8 +38,8 @@ class DeckDetail extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.deckTitleLabel}>{this.state.deck.title}</Text>
-        <Text style={styles.deckTitleQuestions}>{this.state.deck.questions.length} cards</Text>
+        <Text style={styles.deckTitle}>{this.state.deck.title}</Text>
+        <Text style={styles.deckQuestions}>{this.state.deck.questions.length} cards</Text>
         <TouchableOpacity style={styles.addBtn} onPress={this.addCard}>
           <Text style={styles.addBtnText}>Add card</Text>
         </TouchableOpacity>
@@ -58,11 +57,12 @@ const styles = new StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  deckTitleLabel: {
-    fontSize: 21
+  deckTitle: {
+    fontSize: 18
   },
-  deckTitleQuestions: {
-    fontSize: 21
+  deckQuestions: {
+    fontSize: 15,
+    color:gray
   },
   addBtn: {
     marginTop: 20,

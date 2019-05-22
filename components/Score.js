@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { gray, white , purple} from '../utils/colors';
+import { clearLocalNotification } from '../utils/notifications';
 
 class Score extends Component {
   constructor(props) {
@@ -12,6 +13,10 @@ class Score extends Component {
 
     this.correctAnswers = this.getCorrectAnswers();
     this.score = this.getScore();
+  }
+
+  componentDidMount(){
+    clearLocalNotification();
   }
 
   getScore = () => {
@@ -33,7 +38,7 @@ class Score extends Component {
     this.goBackToDeckDetail();
   }
 
-  restartTheQuiz = () => {
+  restartQuiz = () => {
     this.resetQuiz();
     this.props.navigation.goBack();
   }
@@ -48,10 +53,10 @@ class Score extends Component {
         {this.getCorrectAnswers() / this.answers.length < 0.5 && 
           <Text style={styles.text}>Wow, try again.</Text>
         }
-        <TouchableOpacity style={styles.btn} onPress={this.goBackToDeck}>
+        <TouchableOpacity style={styles.btn} onPress={() => this.goBackToDeck}>
           <Text style={styles.btnText}>Back to deck</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.correctBtn} onPress={this.restartTheQuiz}>
+        <TouchableOpacity style={styles.correctBtn} onPress={() => this.restartQuiz}>
           <Text style={styles.btnText}>Restart the quiz</Text>
         </TouchableOpacity>
       </View>

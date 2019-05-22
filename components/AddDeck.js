@@ -7,10 +7,6 @@ import { connect } from 'react-redux';
 import { purple , gray, white} from '../utils/colors';
 
 class AddDeck extends Component {
-  static propTypes = {
-    navigation: PropTypes.object.isRequired
-  }
-
   state = {
     title: ""
   }
@@ -45,6 +41,10 @@ class AddDeck extends Component {
         </TouchableOpacity>
       </View>
     )
+  }
+
+  static propTypes = {
+    navigation: PropTypes.object.isRequired
   }
 }
 

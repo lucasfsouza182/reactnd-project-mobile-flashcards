@@ -31,7 +31,8 @@ class AddCard extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.cardTitleLabel}>Add a new card</Text>
+        <Text style={styles.cardTitle}>{ this.props.navigation.state.params.deckTitle } deck</Text>
+        <Text style={styles.cardTitle}>Add a new card</Text>
         <TextInput
           value={this.state.question}
           style={styles.cardQuestion}
@@ -59,7 +60,7 @@ const styles = new StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  cardTitleLabel: {
+  cardTitle: {
     fontSize: 21
   },
   cardQuestion: {

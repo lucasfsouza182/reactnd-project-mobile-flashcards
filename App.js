@@ -10,13 +10,20 @@ import AddDeck from './components/AddDeck';
 import AddCard from './components/AddCard';
 import Quiz from './components/Quiz';
 import Score from './components/Score';
+import { setLocalNotification } from './utils/notifications';
+import { purple, white,gray } from './utils/colors'
+import { Constants } from 'expo';
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
   
   render() {
     return (
       <Provider store={createStore(reducer)}>
         <View style={{ flex: 1 }}>
+          <AppStatusBar backgroundColor={purple} barStyle="light-content" />
           <MainNavigator />
         </View>
       </Provider>
@@ -42,11 +49,11 @@ const Tabs = TabNavigator({
       header: null
     },
     tabBarOptions: {
-      activeTintColor: '#757575',
-      inactiveTintColor: '#757575',
+      activeTintColor: white,
+      inactiveTintColor: gray,
       style: {
         height: 56,
-        backgroundColor: '#FFF',
+        backgroundColor: purple,
         shadowColor: 'rgba(0, 0, 0, 0.24)',
         shadowOffset: {
           width: 0,
@@ -64,23 +71,46 @@ const Tabs = TabNavigator({
     },
     DeckDetail: {
       screen: DeckDetail,
+      navigationOptions: {
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: purple,
+        }
+      }
     },
     AddCard: {
       screen: AddCard,
+      navigationOptions: {
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: purple,
+        }
+      }
     },
     Quiz: {
       screen: Quiz,
+      navigationOptions: {
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: purple,
+        }
+      }
     },
     Score: {
       screen: Score,
+      navigationOptions: {
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: purple,
+        }
+      }
     }
   })
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  function AppStatusBar({ backgroundColor, ...props }) {
+    return (
+      <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+        <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+      </View>
+    )
+  }
