@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://facebook.github.io/react-native/docs/getting-started.html).
+This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 # REACT PROJECT mobile-flashcards
 
