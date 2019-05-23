@@ -13,16 +13,16 @@ class Quiz extends Component {
       index: 0,
       cardSide: QUESTION,
       answers : [],
-      buttonStateHolder : true
+      buttonDisabled : true
     };
   }
 
   flipCard = () => {
-    this.setState({ cardSide: this.state.cardSide === QUESTION ? ANSWER : QUESTION, buttonStateHolder : false });
+    this.setState({ cardSide: this.state.cardSide === QUESTION ? ANSWER : QUESTION, buttonDisabled : false });
   }
 
   resetQuiz = () => {
-    this.setState({ index: 0 , responses:[] , cardSide: QUESTION,  buttonStateHolder : true });
+    this.setState({ index: 0 , responses:[] , cardSide: QUESTION,  buttonDisabled : true });
   }
 
   answerQuestion = (response) => {
@@ -38,33 +38,25 @@ class Quiz extends Component {
       });
     }
 
-    this.setState({ index: this.state.index + 1,buttonStateHolder : true,cardSide: QUESTION });
+    this.setState({ index: this.state.index + 1,buttonDisabled : true,cardSide: QUESTION });
   }
 
   render() {
-    const {index ,cardSide,buttonStateHolder} = this.state;
+    const {index ,cardSide,buttonDisabled} = this.state;
+    const question = this.deck.questions[index].question;
+    const answer = this.deck.questions[index].answer;
     return (
       <View style={styles.container}>
-        {cardSide === QUESTION &&
           <View style={styles.cardContainer}>
-            <Text style={styles.text}>{this.deck.questions[index].question}</Text>
+            <Text style={styles.text}>{cardSide === QUESTION  ? question : answer}</Text>
             <TouchableOpacity onPress={this.flipCard}>
-              <Text style={styles.flipBtnText}>Click to show the answer</Text>
+              <Text style={styles.flipBtnText}>Click to show the {cardSide === QUESTION  ? 'question' : 'answer'}</Text>
             </TouchableOpacity>
           </View>
-        }
-        {cardSide === ANSWER &&
-          <View style={styles.cardContainer}>
-            <Text style={styles.text}>{this.deck.questions[index].answer}</Text>
-            <TouchableOpacity onPress={this.flipCard}>
-              <Text style={styles.flipBtnText}>Click to show the question</Text>
-            </TouchableOpacity>
-          </View>
-        }
-        <TouchableOpacity style={styles.correctBtn} onPress={() => this.answerQuestion(true)} disabled={buttonStateHolder}>
+        <TouchableOpacity style={[styles.correctBtn, buttonDisabled ? styles.disabledBtn : styles.enableBtn]} onPress={() => this.answerQuestion(true)} disabled={buttonDisabled}>
           <Text style={styles.correctBtnText}>Correct</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.incorrectBtn} onPress={() => this.answerQuestion(false)} disabled={buttonStateHolder}>
+        <TouchableOpacity style={[styles.incorrectBtn, buttonDisabled ? styles.disabledBtn : styles.enableBtn]} onPress={() => this.answerQuestion(false)} disabled={buttonDisabled}>
           <Text style={styles.incorrectBtnText}>Incorrect</Text>
         </TouchableOpacity>
         <Text style={styles.questionLength}>Question {this.state.index + 1} of {this.deck.questions.length}</Text>
@@ -115,6 +107,12 @@ const styles = new StyleSheet.create({
     paddingRight: 40,
     borderRadius: 5,
     height: 40
+  },
+  enableBtn:{
+    opacity:1
+  },
+  disabledBtn:{
+    opacity:0.5
   },
   incorrectBtnText: {
     color: white

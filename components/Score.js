@@ -53,10 +53,10 @@ class Score extends Component {
         {this.getCorrectAnswers() / this.answers.length < 0.5 && 
           <Text style={styles.text}>Wow, try again.</Text>
         }
-        <TouchableOpacity style={styles.btn} onPress={() => this.goBackToDeck}>
+        <TouchableOpacity style={styles.btn} onPress={this.goBackToDeck}>
           <Text style={styles.btnText}>Back to deck</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.correctBtn} onPress={() => this.restartQuiz}>
+        <TouchableOpacity style={styles.btn} onPress={this.restartQuiz}>
           <Text style={styles.btnText}>Restart the quiz</Text>
         </TouchableOpacity>
       </View>

@@ -3,7 +3,6 @@ import { Text, View,StyleSheet, TouchableOpacity,Animated, Easing } from 'react-
 import PropTypes from 'prop-types';
 import { gray } from '../utils/colors';
 
-
 export default class DeckListItem extends Component {
 
   state = {
@@ -15,7 +14,7 @@ export default class DeckListItem extends Component {
     const {item} = this.props;
     
     Animated.parallel([
-      Animated.timing(opacity, {toValue: 1, delay: item.itemIndex * 100, duration: 1000}),
+      Animated.timing(opacity, {toValue: 1, delay: item * 100, duration: 500}),
     ])
     .start()
   }
@@ -26,7 +25,7 @@ export default class DeckListItem extends Component {
 
     return (
       <Animated.View style={{opacity}}>
-        <TouchableOpacity style={[styles.deckItem]}onPress={() => { navigate('DeckDetail', {title: item.title}) }}>
+        <TouchableOpacity style={[styles.deckItem]} onPress={() => { navigate('DeckDetail', {title: item.title}) }}>
           <View>
             <Text style={styles.deckTitle}>{item.title}</Text>
             <Text style={{opacity: .6}}>{item.questions.length} cards</Text>
@@ -34,6 +33,10 @@ export default class DeckListItem extends Component {
         </TouchableOpacity>
       </Animated.View>
     )
+  }
+
+  static propTypes = {
+    item: PropTypes.object.isRequired
   }
 }
 
